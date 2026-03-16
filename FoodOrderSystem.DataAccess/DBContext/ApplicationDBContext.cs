@@ -16,6 +16,8 @@ namespace FoodOrderSystem.DataAccess.DBContext
         //===========================================================================
         public DbSet<Student> Students { get; set; }
         public DbSet<ShopOwner> ShopOwners { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<MenuItem> MenuItems { get; set; }
 
 
 
@@ -42,6 +44,13 @@ namespace FoodOrderSystem.DataAccess.DBContext
                 .HasOne(s => s.ApplicationUser)
                 .WithMany(u => u.Students)
                 .HasForeignKey(s => s.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // Category-MenuItem relationship
+            modelBuilder.Entity<MenuItem>()
+                .HasOne(m => m.Category)
+                .WithMany(c => c.MenuItems)
+                .HasForeignKey(m => m.CategoryId)
                 .OnDelete(DeleteBehavior.Cascade);
         }
     }

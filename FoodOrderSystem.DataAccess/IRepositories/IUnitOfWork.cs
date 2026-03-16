@@ -12,6 +12,7 @@ namespace FoodOrderSystem.DataAccess.IRepositories
         IStudentRepository Student { get; }
         IShopOwnerRepository ShopOwner { get; }
         IUserRepository User { get; }
+        ICategoryRepository Category { get; }
 
 
         //===========================================================================

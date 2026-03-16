@@ -110,7 +110,7 @@ namespace FoodOrderSystem.Services.Services
                         CreatedTime = DateTime.UtcNow,
                         Status = "Active"
                     };
-                    _unitOfWork.Student.Add(student);
+                    await _unitOfWork.Student.AddAsync(student);
                     await _unitOfWork.SaveAsync();
                 }
 
@@ -306,7 +306,7 @@ namespace FoodOrderSystem.Services.Services
                     CreatedTime = DateTime.UtcNow,
                     Status = "Active"
                 };
-                _unitOfWork.ShopOwner.Add(shopOwner);
+                await _unitOfWork.ShopOwner.AddAsync(shopOwner);
                 await _unitOfWork.SaveAsync();
 
                 return new ApiResponseDto<string>
@@ -435,8 +435,7 @@ namespace FoodOrderSystem.Services.Services
                 if (userRole == "ShopOwner")
                 {
                     var shopOwner = await _unitOfWork.ShopOwner
-                        .GetByConditionAsync(so => so.UserId == userId)
-                        .Result.FirstOrDefaultAsync();
+                        .GetAsync(so => so.UserId == userId);
 
                     if (shopOwner != null)
                     {

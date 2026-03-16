@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using FoodOrderSystem.Models.Domains;
 using FoodOrderSystem.Models.DTOs.Authentication;
+using FoodOrderSystem.Models.DTOs.Category;
 using FoodOrderSystem.Models.DTOs.Profile;
 using FoodOrderSystem.Utilities.Constants;
 
@@ -45,6 +46,12 @@ namespace FoodOrderSystem.Services.Mapping
                 .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Avatar, opt => opt.MapFrom(src => src.ImageUrl))
                 .ForMember(dest => dest.BirthDate, opt => opt.MapFrom(src => src.BirthDate.ToString("yyyy-MM-dd")));
+
+            // Category mappings
+            CreateMap<Category, CategoryResponseDto>();
+            CreateMap<CreateCategoryDto, Category>()
+                .ForMember(dest => dest.CategoryId, opt => opt.MapFrom(src => Guid.NewGuid()))
+                .ForMember(dest => dest.CreatedDate, opt => opt.MapFrom(src => StaticOperationStatus.Timezone.Vietnam));
         }
     }
 }
