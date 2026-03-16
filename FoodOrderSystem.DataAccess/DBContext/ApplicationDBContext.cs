@@ -15,6 +15,7 @@ namespace FoodOrderSystem.DataAccess.DBContext
         // Define DbSet properties for your entities here
         //===========================================================================
         public DbSet<Student> Students { get; set; }
+        public DbSet<ShopOwner> ShopOwners { get; set; }
 
 
 
@@ -29,7 +30,19 @@ namespace FoodOrderSystem.DataAccess.DBContext
             // Configure your entity relationships and constraints here
             //===========================================================================
 
+            // ShopOwner relationship
+            modelBuilder.Entity<ShopOwner>()
+                .HasOne(so => so.ApplicationUser)
+                .WithOne(u => u.ShopOwner)
+                .HasForeignKey<ShopOwner>(so => so.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
 
+            // Student relationship
+            modelBuilder.Entity<Student>()
+                .HasOne(s => s.ApplicationUser)
+                .WithMany(u => u.Students)
+                .HasForeignKey(s => s.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

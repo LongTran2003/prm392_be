@@ -1,4 +1,4 @@
-﻿using FoodOrderSystem.Models.DTOs;
+﻿using FoodOrderSystem.Models.DTOs.ResponseFormat;
 
 namespace FoodOrderSystem.Services.Helpers.Responses
 {
