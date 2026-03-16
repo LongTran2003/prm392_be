@@ -33,6 +33,7 @@ namespace FoodOrderSystem.API.Extension
             // 4. Các dịch vụ khác (nếu có)
             //========================================================================
             services.AddScoped<IGoogleAuthService, GoogleAuthService>();
+            services.AddScoped<IUserService, UserService>();
 
 
             return services;
