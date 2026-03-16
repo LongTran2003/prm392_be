@@ -39,6 +39,12 @@ namespace FoodOrderSystem.Services.Mapping
                 .ForMember(dest => dest.FullName, opt => opt.MapFrom(src => src.FullName))
                 .ForMember(dest => dest.ImageUrl, opt => opt.MapFrom(src => src.Avatar))
                 .ForMember(dest => dest.BirthDate, opt => opt.MapFrom(src => src.BirthDate ?? StaticOperationStatus.Timezone.Vietnam));
+
+            // ApplicationUser to CustomerResponseDto
+            CreateMap<ApplicationUser, CustomerResponseDto>()
+                .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.Avatar, opt => opt.MapFrom(src => src.ImageUrl))
+                .ForMember(dest => dest.BirthDate, opt => opt.MapFrom(src => src.BirthDate.ToString("yyyy-MM-dd")));
         }
     }
 }

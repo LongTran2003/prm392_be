@@ -17,6 +17,7 @@ namespace FoodOrderSystem.DataAccess.Repositories
         public IAuthRepository Auth { get; private set; }   
         public IStudentRepository Student { get; private set; }  
         public IShopOwnerRepository ShopOwner { get; private set; }
+        public IUserRepository User { get; private set; }
 
 
 
@@ -29,6 +30,7 @@ namespace FoodOrderSystem.DataAccess.Repositories
             Auth = new AuthRepository(_context);
             Student = new StudentRepository(_context);
             ShopOwner = new ShopOwnerRepository(_context);
+            User = new UserRepository(_context, userManager);
 
 
 
