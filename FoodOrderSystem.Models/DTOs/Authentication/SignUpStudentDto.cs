@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FoodOrderSystem.Models.DTOs.Authentication
 {
-    public class SignUpCustDto
+    public class SignUpStudentDto
     {
         [Required]
         [DataType(DataType.EmailAddress)]

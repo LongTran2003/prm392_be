@@ -14,7 +14,7 @@ namespace FoodOrderSystem.DataAccess.DBContext
         //===========================================================================
         // Define DbSet properties for your entities here
         //===========================================================================
-        public DbSet<Customer> Customers { get; set; }
+        public DbSet<Student> Students { get; set; }
 
 
 

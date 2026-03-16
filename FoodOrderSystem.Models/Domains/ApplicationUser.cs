@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using FoodOrderSystem.Utilities.Constants;
+using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
 
 namespace FoodOrderSystem.Models.Domains
@@ -24,7 +25,7 @@ namespace FoodOrderSystem.Models.Domains
 
         public DateTime? OtpExpiry { get; set; }
 
-        public string Status { get; set; } = "Active"; // Default status is Active
+        public string Status { get; set; } = StaticOperationStatus.BaseEntity.Active; // Default status is Active
 
     }
 }

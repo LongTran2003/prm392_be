@@ -14,7 +14,7 @@ namespace FoodOrderSystem.DataAccess.Repositories
         // Define private fields for your irepositories here
         //===========================================================================
 
-        public ICustomerRepository Customer { get; private set; }  
+        public IStudentRepository Student { get; private set; }  
 
 
         public UnitOfWork(ApplicationDBContext context, UserManager<ApplicationUser> userManager)
@@ -23,7 +23,7 @@ namespace FoodOrderSystem.DataAccess.Repositories
             //===========================================================================
             // Initialize your repositories here
             //===========================================================================
-            Customer = new CustomerRepository(_context);
+            Student = new StudentRepository(_context);
 
 
 

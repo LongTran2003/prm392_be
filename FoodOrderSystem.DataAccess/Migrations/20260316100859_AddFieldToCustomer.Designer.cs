@@ -3,6 +3,7 @@ using System;
 using FoodOrderSystem.DataAccess.DBContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace FoodOrderSystem.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    partial class ApplicationDBContextModelSnapshot : ModelSnapshot
+    [Migration("20260316100859_AddFieldToCustomer")]
+    partial class AddFieldToCustomer
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -123,7 +126,7 @@ namespace FoodOrderSystem.DataAccess.Migrations
                             AccessFailedCount = 0,
                             Address = "System",
                             BirthDate = new DateTime(2026, 12, 3, 0, 0, 0, 0, DateTimeKind.Utc),
-                            ConcurrencyStamp = "4798ea12-9851-4dc2-8c70-55c198e3310f",
+                            ConcurrencyStamp = "1c4ed5d1-1de1-4f04-be58-068fc3f12a8b",
                             Email = "fosadmin@foodorder.com",
                             EmailConfirmed = true,
                             FullName = "System Administrator",
@@ -131,19 +134,19 @@ namespace FoodOrderSystem.DataAccess.Migrations
                             LockoutEnabled = true,
                             NormalizedEmail = "FOSADMIN@FOODORDER.COM",
                             NormalizedUserName = "FOS Admin",
-                            PasswordHash = "AQAAAAIAAYagAAAAEGq1UAUQQuKSAFwPY32LkrzdqJRF/ZTeNKG+yq9IENHySUqPZ6wJtSiTS3D+kgj5OA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEJqO09ngw92eEYch/wE82j1+RmeVUYHMfX1AP7i878CdgvoqkhdXCBi3L0inXV9feQ==",
                             PhoneNumber = "0987654321",
                             PhoneNumberConfirmed = true,
-                            SecurityStamp = "5edf25a3-0181-483d-aaf6-6ebdc1a0de46",
-                            Status = "1",
+                            SecurityStamp = "fa058698-af52-4432-b449-43396e23f9fb",
+                            Status = "Active",
                             TwoFactorEnabled = false,
                             UserName = "FOS Admin"
                         });
                 });
 
-            modelBuilder.Entity("FoodOrderSystem.Models.Domains.Student", b =>
+            modelBuilder.Entity("FoodOrderSystem.Models.Domains.Customer", b =>
                 {
-                    b.Property<Guid>("StudentId")
+                    b.Property<Guid>("CustomerId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
@@ -154,20 +157,15 @@ namespace FoodOrderSystem.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("StudentCode")
-                        .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("character varying(10)");
-
                     b.Property<string>("UserId")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.HasKey("StudentId");
+                    b.HasKey("CustomerId");
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Students");
+                    b.ToTable("Customers");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -318,7 +316,7 @@ namespace FoodOrderSystem.DataAccess.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("FoodOrderSystem.Models.Domains.Student", b =>
+            modelBuilder.Entity("FoodOrderSystem.Models.Domains.Customer", b =>
                 {
                     b.HasOne("FoodOrderSystem.Models.Domains.ApplicationUser", "ApplicationUser")
                         .WithMany()

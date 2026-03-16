@@ -1,8 +1,11 @@
 ﻿using AutoMapper;
 using FoodOrderSystem.DataAccess.IRepositories;
 using FoodOrderSystem.Models.Domains;
+using FoodOrderSystem.Models.DTOs;
+using FoodOrderSystem.Models.DTOs.Authentication;
 using FoodOrderSystem.Services.IServices;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace FoodOrderSystem.Services.Services
 {
@@ -13,6 +16,7 @@ namespace FoodOrderSystem.Services.Services
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IMapper _mapper;
         private readonly ITokenService _tokenService;
+        private readonly IEmailService _emailService;   
 
         public AuthService
         (
@@ -20,7 +24,8 @@ namespace FoodOrderSystem.Services.Services
             IUnitOfWork unitOfWork,
             UserManager<ApplicationUser> userManager,
             IMapper mapper,
-            ITokenService tokenService
+            ITokenService tokenService,
+            IEmailService emailService
         )
         {
             _roleManager = roleManager;
@@ -28,6 +33,17 @@ namespace FoodOrderSystem.Services.Services
             _userManager = userManager;
             _mapper = mapper;
             _tokenService = tokenService;
+            _emailService = emailService;
+        }
+
+        public Task<ResponseDto> SignIn(SignInDto signInDto)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<ResponseDto> SignUpCust(SignUpStudentDto signUpStudentDto)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -8,8 +8,7 @@ namespace FoodOrderSystem.DataAccess.IRepositories
         // Define properties for your repositories here
         //===========================================================================
 
-        ICustomerRepository Customer { get; }
-
+        IStudentRepository Student { get; }
 
 
 
