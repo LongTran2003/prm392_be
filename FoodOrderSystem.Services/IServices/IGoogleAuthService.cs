@@ -1,5 +1,5 @@
-﻿using FoodOrderSystem.Models.DTOs;
-using FoodOrderSystem.Models.DTOs.Authentication.GoogleLogin;
+﻿using FoodOrderSystem.Models.DTOs.Authentication.GoogleLogin;
+using FoodOrderSystem.Models.DTOs.ResponseFormat;
 
 namespace FoodOrderSystem.Services.IServices
 {

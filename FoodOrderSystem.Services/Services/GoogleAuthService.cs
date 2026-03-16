@@ -2,12 +2,12 @@
 using Google.Apis.Auth;
 using FoodOrderSystem.DataAccess.IRepositories;
 using FoodOrderSystem.Models.Domains;
-using FoodOrderSystem.Models.DTOs;
 using FoodOrderSystem.Models.DTOs.Authentication.GoogleLogin;
 using FoodOrderSystem.Services.IServices;
 using FoodOrderSystem.Utilities.Constants;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
+using FoodOrderSystem.Models.DTOs.ResponseFormat;
 
 namespace FoodOrderSystem.Services.Services
 {

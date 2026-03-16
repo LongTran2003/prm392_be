@@ -27,5 +27,9 @@ namespace FoodOrderSystem.Models.Domains
 
         public string Status { get; set; } = StaticOperationStatus.BaseEntity.Active; // Default status is Active
 
+
+        // ADD THESE RELATIONSHIPS
+        public virtual ICollection<Student> Students { get; set; } = new List<Student>();
+        public virtual ShopOwner? ShopOwner { get; set; }
     }
 }

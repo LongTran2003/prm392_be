@@ -1,4 +1,4 @@
-﻿namespace FoodOrderSystem.Models.DTOs
+﻿namespace FoodOrderSystem.Models.DTOs.ResponseFormat
 {
     public class ResponseDto
     {

@@ -1,4 +1,9 @@
-﻿using StackExchange.Redis;
+﻿using FoodOrderSystem.DataAccess.IRepositories;
+using FoodOrderSystem.DataAccess.Repositories;
+using FoodOrderSystem.Services.IServices;
+using FoodOrderSystem.Services.Mapping;
+using FoodOrderSystem.Services.Services;
+using StackExchange.Redis;
 
 namespace FoodOrderSystem.API.Extension
 {
@@ -14,10 +19,20 @@ namespace FoodOrderSystem.API.Extension
             var connectionMultiplexer = ConnectionMultiplexer.Connect(redisConnectionString);
             services.AddSingleton<IConnectionMultiplexer>(connectionMultiplexer);
 
+            // 2. AutoMapper & UnitOfWork
+            services.AddAutoMapper(typeof(AutoMapperProfile));
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+            // 3. Các Service cơ bản
+            services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<IRedisService, RedisService>();
+            services.AddScoped<ITokenService, TokenService>();
+            services.AddScoped<IEmailService, EmailService>();
 
             //========================================================================
-            // 2. Các dịch vụ khác (nếu có)
+            // 4. Các dịch vụ khác (nếu có)
             //========================================================================
+            services.AddScoped<IGoogleAuthService, GoogleAuthService>();
 
 
             return services;
