@@ -65,9 +65,9 @@ options.AddSecurityRequirement(new OpenApiSecurityRequirement
 // API document
 options.SwaggerDoc("v1", new OpenApiInfo
 {
-    Title = "AttaEdu System API",
+    Title = "Food Order System API",
     Version = "v1",
-    Description = "API documentation for AttaEdu System"
+    Description = "API documentation for Food Order System"
 });
 options.EnableAnnotations();
 
