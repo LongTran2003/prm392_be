@@ -34,6 +34,7 @@ namespace FoodOrderSystem.API.Extension
             //========================================================================
             services.AddScoped<IGoogleAuthService, GoogleAuthService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<ICategoryService, CategoryService>();
 
 
             return services;

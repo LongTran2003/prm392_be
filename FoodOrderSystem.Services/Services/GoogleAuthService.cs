@@ -140,8 +140,8 @@ namespace FoodOrderSystem.Services.Services
                     {
                         StudentId = Guid.NewGuid(),
                         UserId = user.Id,
-                        CreatedTime = StaticOperationStatus.Timezone.Vietnam,
-                        Status = StaticOperationStatus.BaseEntity.Active
+                        CreatedTime = DateTime.UtcNow,
+                        Status = "Active"
                     };
 
                     await _unitOfWork.Student.AddAsync(customer);
