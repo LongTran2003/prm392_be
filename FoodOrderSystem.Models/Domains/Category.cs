@@ -22,7 +22,7 @@ namespace FoodOrderSystem.Models.Domains
 
         public DateTime? UpdatedDate { get; set; }
 
-        public string Status { get; set; } = StaticOperationStatus.BaseEntity.Active;
+        public string Status { get; set; } = "Active";
 
         // Navigation properties
         public virtual ICollection<MenuItem>? MenuItems { get; set; }

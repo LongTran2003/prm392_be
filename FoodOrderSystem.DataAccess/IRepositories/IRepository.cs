@@ -9,6 +9,7 @@ namespace FoodOrderSystem.DataAccess.IRepositories
         Task<T?> GetAsync(Expression<Func<T, bool>> filter, string? includeProperties = null);
         Task<IEnumerable<T>> GetAllAsync(Expression<Func<T, bool>>? filter = null, string? includeProperties = null);
         void Remove(T entity);
+        void Update(T entity);
         Task<IEnumerable<T>> GetListAsync(Expression<Func<T, bool>> predicate, string? includeProperties = null);
         void RemoveRange(IEnumerable<T> entities);
     }

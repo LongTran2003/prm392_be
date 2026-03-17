@@ -3,6 +3,7 @@ using FoodOrderSystem.DataAccess.Repositories;
 using FoodOrderSystem.Services.IServices;
 using FoodOrderSystem.Services.Mapping;
 using FoodOrderSystem.Services.Services;
+using FoodOrderSystem.Utilities.Templates.FileUpload;
 using StackExchange.Redis;
 
 namespace FoodOrderSystem.API.Extension
@@ -28,6 +29,7 @@ namespace FoodOrderSystem.API.Extension
             services.AddScoped<IRedisService, RedisService>();
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IEmailService, EmailService>();
+            services.AddScoped<FileUploadService>();
 
             //========================================================================
             // 4. Các dịch vụ khác (nếu có)
@@ -35,7 +37,7 @@ namespace FoodOrderSystem.API.Extension
             services.AddScoped<IGoogleAuthService, GoogleAuthService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<ICategoryService, CategoryService>();
-
+            services.AddScoped<IShopService, ShopService>();
 
             return services;
         }

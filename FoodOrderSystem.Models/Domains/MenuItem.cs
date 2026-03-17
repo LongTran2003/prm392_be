@@ -38,6 +38,9 @@ namespace FoodOrderSystem.Models.Domains
 
         public Guid ShopId { get; set; }
 
-        public string Status { get; set; } = StaticOperationStatus.BaseEntity.Active;
+        [ForeignKey("ShopId")]
+        public virtual Shop Shop { get; set; } = null!;
+
+        public string Status { get; set; } = "Active";
     }
 }

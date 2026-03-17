@@ -74,7 +74,7 @@ namespace FoodOrderSystem.API.Controllers
         /// </summary>
         [HttpPost("refresh-token")]
         [AllowAnonymous]
-        public async Task<IActionResult> RefreshToken([FromBody] RefreshTokenRequest dto)
+        public async Task<IActionResult> RefreshToken([FromBody] RefreshTokenRequestDto dto)
         {
             var result = await _authService.RefreshTokenAsync(dto.RefreshToken);
             return StatusCode(result.Success ? 200 : 401, result);

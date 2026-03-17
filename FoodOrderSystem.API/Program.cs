@@ -119,6 +119,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+// Enable static files (for image serving from wwwroot)
+app.UseStaticFiles();
+
 // Add custom exception middleware
 app.UseMiddleware<GlobalExceptionHandllingMiddleware>();
 

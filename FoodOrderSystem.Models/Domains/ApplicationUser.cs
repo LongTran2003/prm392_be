@@ -25,7 +25,7 @@ namespace FoodOrderSystem.Models.Domains
 
         public DateTime? OtpExpiry { get; set; }
 
-        public string Status { get; set; } = StaticOperationStatus.BaseEntity.Active; // Default status is Active
+        public string Status { get; set; } = "Active"; // Default status is Active
 
 
         // ADD THESE RELATIONSHIPS

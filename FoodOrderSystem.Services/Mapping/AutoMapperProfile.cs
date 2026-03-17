@@ -3,6 +3,7 @@ using FoodOrderSystem.Models.Domains;
 using FoodOrderSystem.Models.DTOs.Authentication;
 using FoodOrderSystem.Models.DTOs.Category;
 using FoodOrderSystem.Models.DTOs.Profile;
+using FoodOrderSystem.Models.DTOs.Shop;
 using FoodOrderSystem.Utilities.Constants;
 
 namespace FoodOrderSystem.Services.Mapping
@@ -52,6 +53,17 @@ namespace FoodOrderSystem.Services.Mapping
             CreateMap<CreateCategoryDto, Category>()
                 .ForMember(dest => dest.CategoryId, opt => opt.MapFrom(src => Guid.NewGuid()))
                 .ForMember(dest => dest.CreatedDate, opt => opt.MapFrom(src => StaticOperationStatus.Timezone.Vietnam));
+
+            // Shop mappings
+            CreateMap<Shop, PopularShopResponseDto>()
+                .ForMember(dest => dest.OpenHours, opt => opt.MapFrom(src => src.OpenHours.ToString(@"hh\:mm\:ss")))
+                .ForMember(dest => dest.CloseHours, opt => opt.MapFrom(src => src.CloseHours.ToString(@"hh\:mm\:ss")));
+
+            CreateMap<Shop, GetShopResponseDto>()
+                .ForMember(dest => dest.OpenHours, opt => opt.MapFrom(src => src.OpenHours.ToString(@"hh\:mm\:ss")))
+                .ForMember(dest => dest.CloseHours, opt => opt.MapFrom(src => src.CloseHours.ToString(@"hh\:mm\:ss")));
+
+            CreateMap<MenuItem, MenuItemResponseDto>();
         }
     }
 }
