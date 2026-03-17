@@ -70,7 +70,7 @@ namespace FoodOrderSystem.Services.Services
                 }
 
                 // Get customer info
-                var customer = await _unitOfWork.User.GetUserByIdAsync(customerId);
+                var customer = await _unitOfWork.User.GetAsync(u => u.Id == customerId);
                 if (customer == null)
                 {
                     return new ApiResponseDto<RatingResponseDto>
@@ -102,19 +102,19 @@ namespace FoodOrderSystem.Services.Services
                     {
                         if (image.Length > 0)
                         {
-                            var uploadResult = await _fileUploadService.UploadFileAsync(image, "ratings");
-                            if (uploadResult.Success)
+                            var uploadedFilePath = await _fileUploadService.SaveFileAsync(image, "ratings");
+                            if (!string.IsNullOrEmpty(uploadedFilePath))
                             {
                                 var ratingImage = new RatingImage
                                 {
                                     RatingImageId = Guid.NewGuid(),
                                     RatingId = rating.RatingId,
-                                    ImageUrl = uploadResult.Url,
+                                    ImageUrl = uploadedFilePath,
                                     CreatedDate = DateTime.UtcNow
                                 };
 
                                 await _unitOfWork.RatingImage.AddAsync(ratingImage);
-                                imageUrls.Add(uploadResult.Url);
+                                imageUrls.Add(uploadedFilePath);
                             }
                         }
                     }
@@ -184,7 +184,7 @@ namespace FoodOrderSystem.Services.Services
                 var ratingDtos = new List<RatingResponseDto>();
                 foreach (var rating in paginatedRatings)
                 {
-                    var customer = await _unitOfWork.User.GetUserByIdAsync(rating.CustomerId);
+                    var customer = await _unitOfWork.User.GetAsync(u => u.Id == rating.CustomerId);
                     var images = await _unitOfWork.RatingImage.GetListAsync(ri => ri.RatingId == rating.RatingId);
 
                     ratingDtos.Add(new RatingResponseDto
@@ -249,7 +249,7 @@ namespace FoodOrderSystem.Services.Services
                 var recentRatingDtos = new List<RatingResponseDto>();
                 foreach (var rating in recentRatings)
                 {
-                    var customer = await _unitOfWork.User.GetUserByIdAsync(rating.CustomerId);
+                    var customer = await _unitOfWork.User.GetAsync(u => u.Id == rating.CustomerId);
                     var images = await _unitOfWork.RatingImage.GetListAsync(ri => ri.RatingId == rating.RatingId);
 
                     recentRatingDtos.Add(new RatingResponseDto
@@ -405,11 +405,11 @@ namespace FoodOrderSystem.Services.Services
                 var images = await _unitOfWork.RatingImage.GetListAsync(ri => ri.RatingId == ratingId);
                 foreach (var image in images)
                 {
-                    _unitOfWork.RatingImage.Delete(image);
+                    _unitOfWork.RatingImage.Remove(image);
                 }
 
                 // Delete rating
-                _unitOfWork.Rating.Delete(rating);
+                _unitOfWork.Rating.Remove(rating);
                 await _unitOfWork.SaveAsync();
 
                 return new ApiResponseDto<string>
