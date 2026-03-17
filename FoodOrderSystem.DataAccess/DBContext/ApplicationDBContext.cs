@@ -18,6 +18,7 @@ namespace FoodOrderSystem.DataAccess.DBContext
         public DbSet<ShopOwner> ShopOwners { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<MenuItem> MenuItems { get; set; }
+        public DbSet<Shop> Shops { get; set; }
 
 
 
@@ -52,6 +53,26 @@ namespace FoodOrderSystem.DataAccess.DBContext
                 .WithMany(c => c.MenuItems)
                 .HasForeignKey(m => m.CategoryId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            // Shop relationships
+            modelBuilder.Entity<Shop>()
+                .HasOne(s => s.ShopOwner)
+                .WithMany(so => so.Shops)
+                .HasForeignKey(s => s.ShopOwnerId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<MenuItem>()
+                .HasOne(m => m.Shop)
+                .WithMany(s => s.MenuItems)
+                .HasForeignKey(m => m.ShopId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // Indexes for better query performance
+            modelBuilder.Entity<Shop>()
+                .HasIndex(s => s.Status);
+
+            modelBuilder.Entity<Shop>()
+                .HasIndex(s => s.ShopOwnerId);
         }
     }
 }

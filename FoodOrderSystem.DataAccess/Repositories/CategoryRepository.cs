@@ -25,10 +25,5 @@ namespace FoodOrderSystem.DataAccess.Repositories
                 .OrderBy(c => c.CategoryName)
                 .ToListAsync();
         }
-
-        public void Update (Category category)
-        {
-            _dbContext.Categories.Update(category);
-        }
     }
 }

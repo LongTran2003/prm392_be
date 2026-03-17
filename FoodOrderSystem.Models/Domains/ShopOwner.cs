@@ -17,8 +17,10 @@ namespace FoodOrderSystem.Models.Domains
 
         public double WalletBalance { get; set; } = 0;
 
-        public DateTime CreatedTime { get; set; } = StaticOperationStatus.Timezone.Vietnam;
+        public DateTime CreatedTime { get; set; } = DateTime.UtcNow;
 
-        public string Status { get; set; } = StaticOperationStatus.BaseEntity.Active;
+        public string Status { get; set; } = "Active";
+
+        public virtual ICollection<Shop> Shops { get; set; } = new List<Shop>();
     }
 }

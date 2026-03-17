@@ -1,6 +1,6 @@
 ﻿namespace FoodOrderSystem.Models.DTOs.Authentication
 {
-    public class RefreshTokenRequest
+    public class RefreshTokenRequestDto
     {
         public string RefreshToken { get; set; } = null!;
     }
