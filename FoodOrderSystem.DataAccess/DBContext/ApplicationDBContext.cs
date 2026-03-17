@@ -21,6 +21,7 @@ namespace FoodOrderSystem.DataAccess.DBContext
         public DbSet<Shop> Shops { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
+        public DbSet<Transaction> Transactions { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -94,6 +95,23 @@ namespace FoodOrderSystem.DataAccess.DBContext
 
             modelBuilder.Entity<Order>()
                 .HasIndex(o => o.PaymentStatus);
+
+            // Transaction relationships
+            modelBuilder.Entity<Transaction>()
+                .HasOne(t => t.User)
+                .WithMany()
+                .HasForeignKey(t => t.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // Indexes for queries
+            modelBuilder.Entity<Transaction>()
+                .HasIndex(t => t.UserId);
+
+            modelBuilder.Entity<Transaction>()
+                .HasIndex(t => t.TransactionType);
+
+            modelBuilder.Entity<Transaction>()
+                .HasIndex(t => t.Status);
         }
     }
 }

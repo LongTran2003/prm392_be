@@ -15,7 +15,7 @@ namespace FoodOrderSystem.Models.Domains
         [ForeignKey("UserId")]
         public virtual ApplicationUser ApplicationUser { get; set; } = null!;
 
-        public double WalletBalance { get; set; } = 0;
+        public decimal WalletBalance { get; set; } = 0;
 
         public DateTime CreatedTime { get; set; } = DateTime.UtcNow;
 

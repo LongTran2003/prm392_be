@@ -17,6 +17,7 @@ namespace FoodOrderSystem.DataAccess.IRepositories
         IMenuItemRepository MenuItem { get; }
         IOrderRepository Order { get; }
         IOrderItemRepository OrderItem { get; }
+        ITransactionRepository Transaction { get; }
 
 
         //===========================================================================

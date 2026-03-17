@@ -23,6 +23,7 @@ namespace FoodOrderSystem.DataAccess.Repositories
         public IMenuItemRepository MenuItem { get; private set; }
         public IOrderRepository Order { get; private set; }
         public IOrderItemRepository OrderItem { get; private set; }
+        public ITransactionRepository Transaction { get; private set; }
 
 
 
@@ -40,7 +41,9 @@ namespace FoodOrderSystem.DataAccess.Repositories
             MenuItem = new MenuItemRepository(_context);
             Order = new OrderRepository(_context);
             OrderItem = new OrderItemRepository(_context);
+            Transaction = new TransactionRepository(_context);
             User = new UserRepository(_context, userManager);
+
 
 
 
