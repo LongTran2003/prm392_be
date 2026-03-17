@@ -38,6 +38,7 @@ namespace FoodOrderSystem.API.Extension
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IShopService, ShopService>();
+            services.AddScoped<IMenuItemService, MenuItemService>();
 
             return services;
         }

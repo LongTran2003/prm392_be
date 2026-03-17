@@ -2,6 +2,7 @@
 using FoodOrderSystem.Models.Domains;
 using FoodOrderSystem.Models.DTOs.Authentication;
 using FoodOrderSystem.Models.DTOs.Category;
+using FoodOrderSystem.Models.DTOs.MenuItem;
 using FoodOrderSystem.Models.DTOs.Profile;
 using FoodOrderSystem.Models.DTOs.Shop;
 using FoodOrderSystem.Utilities.Constants;
@@ -64,6 +65,13 @@ namespace FoodOrderSystem.Services.Mapping
                 .ForMember(dest => dest.CloseHours, opt => opt.MapFrom(src => src.CloseHours.ToString(@"hh\:mm\:ss")));
 
             CreateMap<MenuItem, MenuItemResponseDto>();
+
+            // MenuItem mappings
+            CreateMap<MenuItem, GetMenuItemResponseDto>();
+            CreateMap<CreateMenuItemDto, MenuItem>()
+                .ForMember(dest => dest.MenuItemId, opt => opt.MapFrom(src => Guid.NewGuid()))
+                .ForMember(dest => dest.CreatedDate, opt => opt.MapFrom(src => DateTime.UtcNow))
+                .ForMember(dest => dest.Status, opt => opt.MapFrom(src => "Active"));
         }
     }
 }
