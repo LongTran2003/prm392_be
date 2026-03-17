@@ -19,7 +19,8 @@ namespace FoodOrderSystem.DataAccess.DBContext
         public DbSet<Category> Categories { get; set; }
         public DbSet<MenuItem> MenuItems { get; set; }
         public DbSet<Shop> Shops { get; set; }
-
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderItem> OrderItems { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -73,6 +74,26 @@ namespace FoodOrderSystem.DataAccess.DBContext
 
             modelBuilder.Entity<Shop>()
                 .HasIndex(s => s.ShopOwnerId);
+
+            // Order relationships
+            modelBuilder.Entity<Order>()
+                .HasOne(o => o.Shop)
+                .WithMany()
+                .HasForeignKey(o => o.ShopId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<OrderItem>()
+                .HasOne(oi => oi.Order)
+                .WithMany(o => o.OrderItems)
+                .HasForeignKey(oi => oi.OrderId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // Indexes
+            modelBuilder.Entity<Order>()
+                .HasIndex(o => o.CustomerId);
+
+            modelBuilder.Entity<Order>()
+                .HasIndex(o => o.PaymentStatus);
         }
     }
 }

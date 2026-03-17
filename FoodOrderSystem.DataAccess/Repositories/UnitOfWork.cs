@@ -21,6 +21,8 @@ namespace FoodOrderSystem.DataAccess.Repositories
         public ICategoryRepository Category { get; private set; }
         public IShopRepository Shop { get; private set; }
         public IMenuItemRepository MenuItem { get; private set; }
+        public IOrderRepository Order { get; private set; }
+        public IOrderItemRepository OrderItem { get; private set; }
 
 
 
@@ -36,6 +38,8 @@ namespace FoodOrderSystem.DataAccess.Repositories
             ShopOwner = new ShopOwnerRepository(_context);
             Shop = new ShopRepository(_context);
             MenuItem = new MenuItemRepository(_context);
+            Order = new OrderRepository(_context);
+            OrderItem = new OrderItemRepository(_context);
             User = new UserRepository(_context, userManager);
 
 
