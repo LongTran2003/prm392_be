@@ -27,6 +27,8 @@ namespace FoodOrderSystem.Models.Domains
 
         public string Status { get; set; } = "Active"; // Default status is Active
 
+        public DateTime? CreatedTime { get; set; } 
+
 
         // ADD THESE RELATIONSHIPS
         public virtual ICollection<Student> Students { get; set; } = new List<Student>();

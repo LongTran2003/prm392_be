@@ -43,6 +43,7 @@ namespace FoodOrderSystem.API.Extension
             services.AddScoped<ITransactionService, TransactionService>();
             services.AddScoped<IOrderService, OrderService>();
             services.AddScoped<IFirebaseService, FirebaseService>();
+            services.AddScoped<IAdminService, AdminService>();
 
             //========================================================================
             // 5. Các dịch vụ HttpClient khác (nếu có)
