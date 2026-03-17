@@ -101,7 +101,6 @@ builder.Services.AddAuthentication(options =>
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
 
 
 // Register services from Extensions
@@ -117,7 +116,11 @@ var app = builder.Build();
 //if (app.Environment.IsDevelopment())
 //{
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Food Order System API v1");
+        c.RoutePrefix = string.Empty; // Swagger at root: https://domain.com/
+    });
 //}
 
 // Enable static files (for image serving from wwwroot)
