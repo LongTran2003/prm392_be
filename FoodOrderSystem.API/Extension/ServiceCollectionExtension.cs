@@ -42,11 +42,13 @@ namespace FoodOrderSystem.API.Extension
             services.AddScoped<IPaymentService, PaymentService>();
             services.AddScoped<ITransactionService, TransactionService>();
             services.AddScoped<IOrderService, OrderService>();
+            services.AddScoped<IFirebaseService, FirebaseService>();
 
             //========================================================================
             // 5. Các dịch vụ HttpClient khác (nếu có)
             //========================================================================
             services.AddHttpClient<IPaymentService, PaymentService>();
+            services.AddHttpClient<IFirebaseService, FirebaseService>();
 
             return services;
         }

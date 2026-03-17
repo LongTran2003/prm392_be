@@ -10,14 +10,16 @@ namespace FoodOrderSystem.Services.Services
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly ITransactionService _transactionService;
-        // TODO: Add Firebase client when integrated
+        private readonly IFirebaseService _firebaseService;
 
         public OrderService(
             IUnitOfWork unitOfWork,
-            ITransactionService transactionService)
+            ITransactionService transactionService,
+            IFirebaseService firebaseService)
         {
             _unitOfWork = unitOfWork;
             _transactionService = transactionService;
+            _firebaseService = firebaseService;
         }
 
         /// <summary>
@@ -473,7 +475,6 @@ namespace FoodOrderSystem.Services.Services
         /// <summary>
         /// Internal: Sync order to Firebase
         /// Called after order creation or status update
-        /// TODO: Implement Firebase Realtime DB write
         /// </summary>
         public async Task SyncOrderToFirebaseAsync(Guid orderId)
         {
@@ -483,18 +484,8 @@ namespace FoodOrderSystem.Services.Services
                 if (order == null)
                     return;
 
-                // TODO: Implement Firebase sync
-                // var firebaseData = new {
-                //     orderId = order.FirebaseOrderId,
-                //     customerId = order.CustomerId,
-                //     shopId = order.ShopId,
-                //     status = order.OrderStatus,
-                //     paymentStatus = order.PaymentStatus,
-                //     totalAmount = order.TotalAmount,
-                //     items = order.OrderItems.Select(x => new { name = x.MenuItemName, qty = x.Quantity, price = x.Price }),
-                //     createdAt = DateTime.UtcNow
-                // };
-                // await FirebaseClient.Child("orders").Child(order.FirebaseOrderId).PutAsJsonAsync(firebaseData);
+                // Sync to Firebase
+                await _firebaseService.SyncOrderAsync(order);
 
                 order.LastSyncedToFirebase = DateTime.UtcNow;
                 _unitOfWork.Order.Update(order);

@@ -2,6 +2,7 @@
 using FoodOrderSystem.API.Middleware;
 using FoodOrderSystem.DataAccess.DBContext;
 using FoodOrderSystem.Models.Domains;
+using FoodOrderSystem.Services.IServices;
 using FoodOrderSystem.Utilities.Constants;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -131,5 +132,13 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+// Initialize Firebase on startup
+using (var scope = app.Services.CreateScope())
+{
+    var firebaseService = scope.ServiceProvider.GetRequiredService<IFirebaseService>();
+    await firebaseService.InitializeAsync();
+    Console.WriteLine("Firebase initialized and ready");
+}
 
 app.Run();
