@@ -22,6 +22,8 @@ namespace FoodOrderSystem.DataAccess.DBContext
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
         public DbSet<Transaction> Transactions { get; set; }
+        public DbSet<Rating> Ratings { get; set; }
+        public DbSet<RatingImage> RatingImages { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -112,6 +114,32 @@ namespace FoodOrderSystem.DataAccess.DBContext
 
             modelBuilder.Entity<Transaction>()
                 .HasIndex(t => t.Status);
+
+            // Rating relationships
+            modelBuilder.Entity<Rating>()
+                .HasOne(r => r.Shop)
+                .WithMany(s => s.Ratings)
+                .HasForeignKey(r => r.ShopId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Rating>()
+                .HasOne(r => r.Customer)
+                .WithMany()
+                .HasForeignKey(r => r.CustomerId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<RatingImage>()
+                .HasOne(ri => ri.Rating)
+                .WithMany(r => r.Images)
+                .HasForeignKey(ri => ri.RatingId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // Indexes
+            modelBuilder.Entity<Rating>()
+                .HasIndex(r => r.ShopId);
+
+            modelBuilder.Entity<Rating>()
+                .HasIndex(r => r.CustomerId);
         }
     }
 }

@@ -18,6 +18,8 @@ namespace FoodOrderSystem.DataAccess.IRepositories
         IOrderRepository Order { get; }
         IOrderItemRepository OrderItem { get; }
         ITransactionRepository Transaction { get; }
+        IRatingRepository Rating { get; }
+        IRatingImageRepository RatingImage { get; }
 
 
         //===========================================================================

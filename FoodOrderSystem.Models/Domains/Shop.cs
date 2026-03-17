@@ -51,7 +51,11 @@ namespace FoodOrderSystem.Models.Domains
 
         public double AverageRating { get; set; } = 0;
 
+        public int TotalRatings { get; set; } = 0;
+
         // Navigation properties
         public virtual ICollection<MenuItem>? MenuItems { get; set; }
+
+        public virtual ICollection<Rating>? Ratings { get; set; }
     }
 }

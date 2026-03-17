@@ -24,6 +24,8 @@ namespace FoodOrderSystem.DataAccess.Repositories
         public IOrderRepository Order { get; private set; }
         public IOrderItemRepository OrderItem { get; private set; }
         public ITransactionRepository Transaction { get; private set; }
+        public IRatingRepository Rating { get; private set; }
+        public IRatingImageRepository RatingImage { get; private set; } 
 
 
 
@@ -42,6 +44,8 @@ namespace FoodOrderSystem.DataAccess.Repositories
             Order = new OrderRepository(_context);
             OrderItem = new OrderItemRepository(_context);
             Transaction = new TransactionRepository(_context);
+            Rating = new RatingRepository(_context);
+            RatingImage = new RatingImageRepository(_context);
             User = new UserRepository(_context, userManager);
 
 

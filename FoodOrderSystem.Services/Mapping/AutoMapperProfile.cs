@@ -4,6 +4,7 @@ using FoodOrderSystem.Models.DTOs.Authentication;
 using FoodOrderSystem.Models.DTOs.Category;
 using FoodOrderSystem.Models.DTOs.MenuItem;
 using FoodOrderSystem.Models.DTOs.Profile;
+using FoodOrderSystem.Models.DTOs.Rating;
 using FoodOrderSystem.Models.DTOs.Shop;
 using FoodOrderSystem.Utilities.Constants;
 
@@ -72,6 +73,16 @@ namespace FoodOrderSystem.Services.Mapping
                 .ForMember(dest => dest.MenuItemId, opt => opt.MapFrom(src => Guid.NewGuid()))
                 .ForMember(dest => dest.CreatedDate, opt => opt.MapFrom(src => DateTime.UtcNow))
                 .ForMember(dest => dest.Status, opt => opt.MapFrom(src => "Active"));
+
+            // Rating mappings
+            CreateMap<Rating, RatingResponseDto>()
+                .ForMember(dest => dest.CustomerName, opt => opt.Ignore()) // Set in service
+                .ForMember(dest => dest.CustomerAvatar, opt => opt.Ignore()) // Set in service
+                .ForMember(dest => dest.ImageUrls, opt => opt.Ignore()); // Set in service
+
+            CreateMap<CreateRatingDto, Rating>()
+                .ForMember(dest => dest.RatingId, opt => opt.MapFrom(src => Guid.NewGuid()))
+                .ForMember(dest => dest.CreatedDate, opt => opt.MapFrom(src => DateTime.UtcNow));
         }
     }
 }
