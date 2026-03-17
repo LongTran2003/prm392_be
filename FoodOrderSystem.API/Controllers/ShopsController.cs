@@ -7,7 +7,7 @@ using System.Security.Claims;
 namespace FoodOrderSystem.API.Controllers
 {
     [ApiController]
-    [Route("api/shop")]
+    [Route("api/shops")]
     public class ShopsController : ControllerBase
     {
         private readonly IShopService _shopService;

@@ -8,7 +8,7 @@ using static FoodOrderSystem.Utilities.Constants.StaticOperationStatus;
 namespace FoodOrderSystem.API.Controllers
 {
     [ApiController]
-    [Route("api/menu-item")]
+    [Route("api/menu-items")]
     public class MenuItemsController : ControllerBase
     {
         private readonly IMenuItemService _menuItemService;

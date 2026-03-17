@@ -47,6 +47,8 @@ namespace FoodOrderSystem.Models.Domains
 
         public string Status { get; set; } = "Active";
 
+        public DateTime? LastSyncedToFirebase { get; set; }  // track last Firebase sync
+
         // Navigation
         public virtual ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
     }

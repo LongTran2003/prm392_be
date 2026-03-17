@@ -8,7 +8,7 @@ using System.Security.Claims;
 namespace FoodOrderSystem.API.Controllers
 {
     [ApiController]
-    [Route("api/v1/[controller]")]
+    [Route("api/transactions")]
     [Authorize]
     public class TransactionsController : ControllerBase
     {
