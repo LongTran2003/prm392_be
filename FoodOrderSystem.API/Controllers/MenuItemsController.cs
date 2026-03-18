@@ -41,8 +41,7 @@ namespace FoodOrderSystem.API.Controllers
         [HttpPost]
         [Authorize(Roles = "ShopOwner")]
         public async Task<IActionResult> CreateMenuItem(
-            [FromForm] CreateMenuItemDto createDto,
-            [FromForm] IFormFile? image)
+            [FromForm] CreateMenuItemDto createDto)
         {
             var ownerId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             if (string.IsNullOrEmpty(ownerId))
@@ -50,7 +49,7 @@ namespace FoodOrderSystem.API.Controllers
                 return Unauthorized();
             }
 
-            var result = await _menuItemService.CreateMenuItemAsync(ownerId, createDto, image);
+            var result = await _menuItemService.CreateMenuItemAsync(ownerId, createDto, createDto.Image);
             return StatusCode(result.Success ? 201 : 400, result);
         }
 
@@ -65,8 +64,7 @@ namespace FoodOrderSystem.API.Controllers
         [Authorize(Roles = "ShopOwner")]
         public async Task<IActionResult> UpdateMenuItem(
             Guid menuItemId,
-            [FromForm] UpdateMenuItemDto updateDto,
-            [FromForm] IFormFile? image)
+            [FromForm] UpdateMenuItemDto updateDto)
         {
             var ownerId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             if (string.IsNullOrEmpty(ownerId))
@@ -77,7 +75,7 @@ namespace FoodOrderSystem.API.Controllers
             // Ensure menuItemId in URL matches DTO
             updateDto.MenuItemId = menuItemId;
 
-            var result = await _menuItemService.UpdateMenuItemAsync(ownerId, updateDto, image);
+            var result = await _menuItemService.UpdateMenuItemAsync(ownerId, updateDto, updateDto.Image);
             return StatusCode(result.Success ? 200 : 400, result);
         }
 

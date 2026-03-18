@@ -90,9 +90,7 @@ namespace FoodOrderSystem.API.Controllers
         /// </summary>
         [HttpPost]
         [Authorize(Roles = "ShopOwner")]
-        public async Task<IActionResult> CreateShop([FromForm] CreateShopDto createDto,
-            [FromForm] IFormFile? image,
-            [FromForm] IFormFile? businessLicenseImage)
+        public async Task<IActionResult> CreateShop([FromForm] CreateShopDto createDto)
         {
             var ownerId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             if (string.IsNullOrEmpty(ownerId))
@@ -100,7 +98,7 @@ namespace FoodOrderSystem.API.Controllers
                 return Unauthorized();
             }
 
-            var result = await _shopService.CreateShopAsync(ownerId, createDto, image, businessLicenseImage);
+            var result = await _shopService.CreateShopAsync(ownerId, createDto, createDto.Image, createDto.BusinessLicenseImage);
             return StatusCode(result.Success ? 201 : 400, result);
         }
 
@@ -113,9 +111,7 @@ namespace FoodOrderSystem.API.Controllers
         /// </summary>
         [HttpPut]
         [Authorize(Roles = "ShopOwner")]
-        public async Task<IActionResult> UpdateShop([FromForm] UpdateShopDto updateDto,
-            [FromForm] IFormFile? image,
-            [FromForm] IFormFile? businessLicenseImage)
+        public async Task<IActionResult> UpdateShop([FromForm] UpdateShopDto updateDto)
         {
             var ownerId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             if (string.IsNullOrEmpty(ownerId))
@@ -123,7 +119,7 @@ namespace FoodOrderSystem.API.Controllers
                 return Unauthorized();
             }
 
-            var result = await _shopService.UpdateShopAsync(ownerId, updateDto, image, businessLicenseImage);
+            var result = await _shopService.UpdateShopAsync(ownerId, updateDto, updateDto.Image, updateDto.BusinessLicenseImage);
             return StatusCode(result.Success ? 200 : 400, result);
         }
 

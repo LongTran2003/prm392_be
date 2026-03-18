@@ -115,12 +115,8 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 //if (app.Environment.IsDevelopment())
 //{
-    app.UseSwagger();
-    app.UseSwaggerUI(c =>
-    {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Food Order System API v1");
-        c.RoutePrefix = string.Empty; // Swagger at root: https://domain.com/
-    });
+app.UseSwagger();
+app.UseSwaggerUI();
 //}
 
 // Enable static files (for image serving from wwwroot)

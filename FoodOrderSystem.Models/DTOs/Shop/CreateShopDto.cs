@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Http;
+using System.ComponentModel.DataAnnotations;
 
 namespace FoodOrderSystem.Models.DTOs.Shop
 {
@@ -31,6 +32,9 @@ namespace FoodOrderSystem.Models.DTOs.Shop
 
         [Required]
         public string CloseHours { get; set; } = null!;  // Format: "22:00:00"
+
+        public IFormFile? Image { get; set; }
+        public IFormFile? BusinessLicenseImage { get; set; }
 
         // Files will be sent separately by Android as multipart
         // image, businessLicenseImage

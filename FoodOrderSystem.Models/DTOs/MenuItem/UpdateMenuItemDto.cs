@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Http;
+using System.ComponentModel.DataAnnotations;
 
 namespace FoodOrderSystem.Models.DTOs.MenuItem
 {
@@ -29,6 +30,8 @@ namespace FoodOrderSystem.Models.DTOs.MenuItem
         public Guid ShopId { get; set; }
 
         public bool IsAvailable { get; set; } = true;
+
+        public IFormFile? Image { get; set; }
 
         // image file sent as multipart (optional)
     }

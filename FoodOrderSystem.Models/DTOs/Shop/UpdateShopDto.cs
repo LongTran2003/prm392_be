@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Http;
+using System.ComponentModel.DataAnnotations;
 
 namespace FoodOrderSystem.Models.DTOs.Shop
 {
@@ -33,6 +34,9 @@ namespace FoodOrderSystem.Models.DTOs.Shop
 
         [Required]
         public string CloseHours { get; set; } = null!;
+
+        public IFormFile? Image { get; set; }
+        public IFormFile? BusinessLicenseImage { get; set; }
 
         // Files are optional for updates (sent as multipart)
         // image, businessLicenseImage
