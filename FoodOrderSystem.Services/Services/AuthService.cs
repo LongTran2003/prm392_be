@@ -320,7 +320,7 @@ namespace FoodOrderSystem.Services.Services
                 return new ApiResponseDto<string>
                 {
                     Success = false,
-                    Message = $"Registration failed: {ex.Message}",
+                    Message = $"Registration failed: {ex.GetBaseException().Message}",
                     MessageId = "REGISTRATION_FAILED"
                 };
             }

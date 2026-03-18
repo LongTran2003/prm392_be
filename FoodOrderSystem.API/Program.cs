@@ -21,13 +21,21 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 
 // Configure DbContext with SQL Server  
-builder.Services.AddDbContext<ApplicationDBContext>(options =>
+var connectionString =
+    builder.Configuration.GetConnectionString(StaticConnectionString.PostgreSqlConnection)
+    ?? builder.Configuration.GetConnectionString(StaticConnectionString.PostgreDefaultConnection);
+
+if (string.IsNullOrWhiteSpace(connectionString))
 {
-    //options.UseSqlServer(
-    //    builder.Configuration.GetConnectionString(StaticConnectionString.SqldbDefaultConnection));
-    options.UseNpgsql(
-        builder.Configuration.GetConnectionString(StaticConnectionString.PostgreDefaultConnection));
-});
+    throw new InvalidOperationException("Database connection string is missing.");
+}
+
+builder.Services.AddDbContext<ApplicationDBContext>(options =>
+    options.UseNpgsql(connectionString, npgsql =>
+        npgsql.EnableRetryOnFailure(
+            maxRetryCount: 5,
+            maxRetryDelay: TimeSpan.FromSeconds(10),
+            errorCodesToAdd: null)));
 
 // Configure Identity  
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
