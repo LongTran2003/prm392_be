@@ -17,11 +17,15 @@ namespace FoodOrderSystem.Services.Services
 
         public EmailService(IConfiguration configuration)
         {
-            _fromEmail = configuration[StaticEmailSettings.FromEmail]!;
-            _fromPassword = configuration[StaticEmailSettings.FromPassword]!;
-            _smtpHost = configuration[StaticEmailSettings.SmtpHost]!;
-            _smtpPort = int.Parse(configuration[StaticEmailSettings.SmtpPort]!);
-            _useSsl = bool.Parse(configuration[StaticEmailSettings.UseSsl]!);
+            _fromEmail = configuration[StaticEmailSettings.FromEmail] ?? string.Empty;
+            _fromPassword = configuration[StaticEmailSettings.FromPassword] ?? string.Empty;
+            _smtpHost = configuration[StaticEmailSettings.SmtpHost] ?? "smtp.gmail.com";
+
+            var smtpPortRaw = configuration[StaticEmailSettings.SmtpPort];
+            _smtpPort = int.TryParse(smtpPortRaw, out var port) ? port : 587;
+
+            var useSslRaw = configuration[StaticEmailSettings.UseSsl];
+            _useSsl = bool.TryParse(useSslRaw, out var ssl) ? ssl : true;
         }
 
         public async Task<bool> SendPasswordResetEmailAsync(string toEmail, string resetPasswordLink)
