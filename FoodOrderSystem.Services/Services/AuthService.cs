@@ -224,7 +224,7 @@ namespace FoodOrderSystem.Services.Services
                 return new ApiResponseDto<TokenResponseDto>
                 {
                     Success = false,
-                    Message = $"Login failed: {ex.Message}",
+                    Message = $"Login failed: {ex.GetBaseException().Message}",
                     MessageId = "LOGIN_FAILED"
                 };
             }
