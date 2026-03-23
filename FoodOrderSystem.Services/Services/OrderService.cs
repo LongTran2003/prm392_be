@@ -114,7 +114,7 @@ namespace FoodOrderSystem.Services.Services
                 // Sync to Firebase (background task)
                 _ = SyncOrderToFirebaseAsync(order.OrderId);
 
-                var user = await _unitOfWork.User.GetFirstOrDefaultAsync(u => u.Id == customerId);
+                var user = await _unitOfWork.User.GetAsync(u => u.Id == customerId);
                 var cName = user != null && !string.IsNullOrEmpty(user.FullName) ? user.FullName : "Unknown";
 
                 var response = MapOrderToResponse(order, shop.ShopName, cName);
@@ -231,7 +231,7 @@ namespace FoodOrderSystem.Services.Services
                 var orders = await _unitOfWork.Order.GetOrdersByShopAsync(shopId);
 
                 var userIds = orders.Select(o => o.CustomerId).Distinct().ToList();
-                var users = await _unitOfWork.User.GetAsync(u => userIds.Contains(u.Id));
+                var users = await _unitOfWork.User.GetListAsync(u => userIds.Contains(u.Id));
                 var userDict = users.ToDictionary(u => u.Id, u => string.IsNullOrEmpty(u.FullName) ? "Unknown" : u.FullName);
 
                 var orderDtos = orders
