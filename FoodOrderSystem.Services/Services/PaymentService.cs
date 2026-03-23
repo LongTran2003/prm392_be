@@ -3,6 +3,9 @@ using FoodOrderSystem.Models.Domains;
 using FoodOrderSystem.Models.DTOs.Payment;
 using FoodOrderSystem.Services.IServices;
 using Microsoft.Extensions.Configuration;
+using Net.payOS;
+using Net.payOS.Types;
+
 
 namespace FoodOrderSystem.Services.Services
 {
@@ -11,15 +14,18 @@ namespace FoodOrderSystem.Services.Services
         private readonly IUnitOfWork _unitOfWork;
         private readonly IConfiguration _configuration;
         private readonly HttpClient _httpClient;
+        private readonly PayOS _payOS;
 
         public PaymentService(
             IUnitOfWork unitOfWork,
             IConfiguration configuration,
-            HttpClient httpClient)
+            HttpClient httpClient,
+            PayOS payOS)
         {
             _unitOfWork = unitOfWork;
             _configuration = configuration;
             _httpClient = httpClient;
+            _payOS = payOS;
         }
 
         /// <summary>
@@ -72,14 +78,30 @@ namespace FoodOrderSystem.Services.Services
                 await _unitOfWork.Order.AddAsync(order);
                 await _unitOfWork.SaveAsync();
 
-                // TODO: Call PayOS API to generate QR code
-                // For now, return mock checkout URL
-                // In production, integrate with PayOS SDK
+                // Tạo OrderCode bằng số (PayOS yêu cầu mã ID kiểu long tối đa 53 bit)
+                long payosOrderCode = long.Parse(DateTimeOffset.Now.ToString("yyMMddHHmmss"));
 
-                var checkoutUrl = $"https://qr.payos.vn/mock/{order.OrderId}";
+                // Gom dữ liệu để thanh toán (Đại diện cho số tiền)
+                ItemData item = new ItemData("Food Order", 1, (int)requestDto.TotalAmount);
+                List<ItemData> items = new List<ItemData> { item };
 
-                // Store PayOS order code if returned
-                order.PayosOrderCode = order.OrderId.ToString();
+                // Tạo đối tượng Request cho PayOS
+                PaymentData paymentData = new PaymentData(
+                    orderCode: payosOrderCode,
+                    amount: (int)requestDto.TotalAmount,
+                    description: "Order " + payosOrderCode,
+                    items: items,
+                    cancelUrl: "https://studentorderfood.app/cancel",
+                    returnUrl: "https://studentorderfood.app/return"
+                );
+
+                // Call API của PayOS để lấy Link Thanh Toán
+                CreatePaymentResult createPayment = await _payOS.createPaymentLink(paymentData);
+                var checkoutUrl = createPayment.checkoutUrl;
+
+                // Lưu lại mã hóa đơn để sau này check callback
+                order.PayosOrderCode = payosOrderCode.ToString();
+
                 _unitOfWork.Order.Update(order);
                 await _unitOfWork.SaveAsync();
 

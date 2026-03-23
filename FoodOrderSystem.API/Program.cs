@@ -11,6 +11,8 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
 using System.Text;
+using Net.payOS;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -113,6 +115,14 @@ builder.Services.AddEndpointsApiExplorer();
 
 // Register services from Extensions
 builder.Services.RegisterServices(builder.Configuration);
+
+// Khởi tạo và đăng ký PayOS
+PayOS payOS = new PayOS(
+    builder.Configuration["PayOS:ClientId"],
+    builder.Configuration["PayOS:ApiKey"],
+    builder.Configuration["PayOS:ChecksumKey"]
+);
+builder.Services.AddSingleton(payOS);
 
 
 //================================================================
