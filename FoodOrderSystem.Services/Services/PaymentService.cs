@@ -82,8 +82,8 @@ namespace FoodOrderSystem.Services.Services
                 long payosOrderCode = long.Parse(DateTimeOffset.Now.ToString("yyMMddHHmmss"));
 
                 // Gom dữ liệu để thanh toán (Đại diện cho số tiền)
-                ItemData item = new ItemData("Food Order", 1, (int)requestDto.TotalAmount);
-                List<ItemData> items = new List<ItemData> { item };
+                ItemData payosItem = new ItemData("Food Order", 1, (int)requestDto.TotalAmount);
+                List<ItemData> items = new List<ItemData> { payosItem };
 
                 // Tạo đối tượng Request cho PayOS
                 PaymentData paymentData = new PaymentData(
