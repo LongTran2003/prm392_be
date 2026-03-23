@@ -1,4 +1,4 @@
-﻿namespace FoodOrderSystem.Models.DTOs.Order
+namespace FoodOrderSystem.Models.DTOs.Order
 {
     /// <summary>
     /// Order response for listing and detail
@@ -10,6 +10,7 @@
         public string FirebaseOrderId { get; set; } = null!;
         public Guid ShopId { get; set; }
         public string ShopName { get; set; } = null!;
+        public string CustomerName { get; set; } = null!;
         public string OrderStatus { get; set; } = null!;  // Pending, Confirmed, Delivering, Completed, Cancelled
         public string PaymentMethod { get; set; } = null!;
         public string PaymentStatus { get; set; } = null!;  // Pending, Paid, Failed
