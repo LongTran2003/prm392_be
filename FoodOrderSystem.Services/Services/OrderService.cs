@@ -111,11 +111,12 @@ namespace FoodOrderSystem.Services.Services
                 await _unitOfWork.Order.AddAsync(order);
                 await _unitOfWork.SaveAsync();
 
-                // Sync to Firebase (background task)
-                _ = SyncOrderToFirebaseAsync(order.OrderId);
-
+                // Fetch user name BEFORE firing background task (avoids concurrent DbContext access)
                 var user = await _unitOfWork.User.GetAsync(u => u.Id == customerId);
                 var cName = user != null && !string.IsNullOrEmpty(user.FullName) ? user.FullName : "Unknown";
+
+                // Sync to Firebase (background task) - start AFTER all DbContext operations are done
+                _ = SyncOrderToFirebaseAsync(order.OrderId);
 
                 var response = MapOrderToResponse(order, shop.ShopName, cName);
 
@@ -158,7 +159,7 @@ namespace FoodOrderSystem.Services.Services
 
                 var orders = await _unitOfWork.Order.GetOrdersByCustomerAsync(customerId);
 
-                var user = await _unitOfWork.User.GetFirstOrDefaultAsync(u => u.Id == customerId);
+                var user = await _unitOfWork.User.GetAsync(u => u.Id == customerId);
                 var cName = user != null && !string.IsNullOrEmpty(user.FullName) ? user.FullName : "Unknown";
 
                 var orderDtos = new List<OrderResponseDto>();

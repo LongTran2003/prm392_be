@@ -1,4 +1,4 @@
-﻿namespace FoodOrderSystem.Models.DTOs.Payment
+namespace FoodOrderSystem.Models.DTOs.Payment
 {
     /// <summary>
     /// Raw response from payment endpoint (NOT wrapped)
